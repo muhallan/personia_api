@@ -1,7 +1,7 @@
 import json
 import unittest
 from tests.base_test import BaseTestCase
-from models.models import User
+from models.user import User
 
 
 def register_user(self, username=None, password=None, name=None):

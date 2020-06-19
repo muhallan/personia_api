@@ -1,6 +1,6 @@
 from flask import request, jsonify, make_response
 from functools import wraps
-from models.models import User
+from models.user import User
 
 
 def authorization(func):

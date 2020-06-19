@@ -1,14 +1,14 @@
 import logging
 from flask import Blueprint, request, make_response, jsonify
 from flask.views import MethodView
-from models.models import User
+from models.user import User
 
 auth_blueprint = Blueprint('auth', __name__, url_prefix='/api/v1')
 
 
 class RegisterView(MethodView):
     """
-    View to register a user
+    View to register a user of the API
     """
     def post(self):
         # get the post data
@@ -70,7 +70,7 @@ class RegisterView(MethodView):
 
 class LoginView(MethodView):
     """
-    View to login the user
+    View to login the user of the API
     """
     def post(self):
         # get the post data

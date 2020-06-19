@@ -11,7 +11,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 # for removing trailing slashes enforcement
 app.url_map.strict_slashes = False
 
-from models.models import db
+from models.user import db
 from auth.views import auth_blueprint
 app.register_blueprint(auth_blueprint)
 

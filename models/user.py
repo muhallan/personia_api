@@ -7,7 +7,7 @@ from .model_mixin import app, db, ModelMixin
 
 class User(ModelMixin):
     """
-    The user model. This represents the holder of the bank account
+    The user model. This represents the user who is authorized to use this API
     """
     __tablename__ = 'user'
 
