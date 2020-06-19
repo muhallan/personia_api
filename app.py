@@ -12,6 +12,8 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 app.url_map.strict_slashes = False
 
 from models.models import db
+from auth.views import auth_blueprint
+app.register_blueprint(auth_blueprint)
 
 
 @app.before_first_request
