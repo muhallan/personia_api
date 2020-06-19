@@ -23,7 +23,7 @@ class User(ModelMixin):
         self.password = Bcrypt().generate_password_hash(password).decode()
         self.name = name
 
-    def password_is_valid(self, password):
+    def is_password_valid(self, password):
         """
         Check the password provided against the hash we have stored to validate it
         """

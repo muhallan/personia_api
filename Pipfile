@@ -13,6 +13,8 @@ flask-script = "*"
 flask-migrate = "*"
 pyjwt = "*"
 flask-bcrypt = "*"
+flask-testing = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.6"

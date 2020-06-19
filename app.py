@@ -11,5 +11,13 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 # for removing trailing slashes enforcement
 app.url_map.strict_slashes = False
 
+from models.models import db
+
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
+
 if __name__ == '__main__':
     app.run()

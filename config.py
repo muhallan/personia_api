@@ -24,7 +24,7 @@ class Testing(Config):
     """
     Testing configuration
     """
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///personio_testing_db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///personio_testing.db'
     TESTING = True
     SECRET_KEY = 'anotherrandomstringfortesting'
 
