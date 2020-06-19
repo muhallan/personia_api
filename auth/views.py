@@ -13,6 +13,12 @@ class RegisterView(MethodView):
     def post(self):
         # get the post data
         post_data = request.json
+        if not post_data:
+            response = {
+                'status': 'fail',
+                'message': 'No post body provided. Username, password and name are required.'
+            }
+            return make_response(jsonify(response)), 400
 
         # validate the posted data whether it is complete
         username = post_data.get('username')
@@ -69,6 +75,12 @@ class LoginView(MethodView):
     def post(self):
         # get the post data
         post_data = request.json
+        if not post_data:
+            response = {
+                'status': 'fail',
+                'message': 'No post body provided. Username and password are required.'
+            }
+            return make_response(jsonify(response)), 400
 
         username = post_data.get('username')
         password = post_data.get('password')
