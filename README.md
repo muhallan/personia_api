@@ -11,6 +11,6 @@ These instructions will get you a copy of the project up and running on your
 local machine for development and testing purposes. A linux machine is assumed.
 
 ## Pre-requisites
-* [Python](https://docs.python.org/3/) versions 3.3 to 3.8
+* [Python](https://docs.python.org/3/) versions 3.6 to 3.8
 * [Git](https://git-scm.com/)
 * [pipenv](https://github.com/pypa/pipenv)

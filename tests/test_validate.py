@@ -1,6 +1,6 @@
 import unittest
 import uuid
-from helpers.validate import validate_uuid
+from helpers.validate import validate_json, validate_uuid, check_json_contains_loop
 
 
 class TestValidateUUID(unittest.TestCase):
@@ -29,6 +29,62 @@ class TestValidateUUID(unittest.TestCase):
         self.assertTrue(uuid_without_dashes)
         uppercase_uuid = "3DC908713E2F4FA2B1B2132E8717B394"
         self.assertTrue(uppercase_uuid)
+
+
+class TestValidateJSON(unittest.TestCase):
+
+    def test_validate_correct_json(self):
+        data = """
+        {
+            "user": "joker",
+            "password": "batman",
+            "user": "man"
+        }
+        """
+        self.assertTrue(validate_json(data))
+
+    def test_validate_incorrect_json(self):
+        data = "just a string"
+        self.assertFalse(validate_json(data))
+        data2 = 6789
+        self.assertFalse(validate_json(data2))
+        data3 = {'one': 1, "two": 2}
+        self.assertFalse(validate_json(data3))
+        data4 = [5, 2, 2, 4, 6]
+        self.assertFalse(validate_json(data4))
+        data5 = "{'color': 'white', 'size': '46'}"
+        self.assertFalse(validate_json(data5))
+
+
+class TestCheckJsonContainsLoop(unittest.TestCase):
+
+    def test_check_json_contains_loop_gets_duplicates(self):
+        with_loop = """
+            {
+                "Pete": "Nick",
+                "Barbara": "Nick",
+                "Nick": "Sophie",
+                "Sophie": "Jonas",
+                "Jane": "Reenah",
+                "Barbara": "Sophie",
+                "Nick": "Dre"
+            }
+        """
+        duplicates = check_json_contains_loop(with_loop)
+        self.assertListEqual(duplicates, ['Barbara', 'Nick'])
+
+    def test_check_json_contains_loop_no_duplicates(self):
+        with_loop = """
+            {
+                "Pete": "Nick",
+                "Barbara": "Nick",
+                "Nick": "Sophie",
+                "Sophie": "Jonas",
+                "Jane": "Reenah"
+            }
+        """
+        duplicates = check_json_contains_loop(with_loop)
+        self.assertListEqual(duplicates, [])
 
 
 if __name__ == '__main__':

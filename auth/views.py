@@ -12,6 +12,13 @@ class RegisterView(MethodView):
     View to register a user of the API
     """
     def post(self):
+        if not request.is_json:
+            response = {
+                'status': 'fail',
+                'message': 'The Content-Type of the post data is not JSON. Ensure you use application/json'
+            }
+            return make_response(jsonify(response)), 400
+
         # get the post data
         post_data = request.json
         if not post_data:
@@ -76,6 +83,13 @@ class LoginView(MethodView):
     View to login the user of the API
     """
     def post(self):
+        if not request.is_json:
+            response = {
+                'status': 'fail',
+                'message': 'The Content-Type of the post data is not JSON. Ensure you use application/json'
+            }
+            return make_response(jsonify(response)), 400
+
         # get the post data
         post_data = request.json
         if not post_data:

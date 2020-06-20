@@ -109,6 +109,28 @@ class TestAuth(BaseTestCase):
             self.assertTrue(response.content_type == 'application/json')
             self.assertEqual(response.status_code, 400)
 
+    def test_registration_fails_with_invalid_content_type(self):
+        """
+        Test that registration fails when the post data is sent with a content-type other than application/json
+        :return:
+        """
+        with self.client:
+            response = self.client.post(
+                '/api/v1/auth/register',
+                data=json.dumps(dict(
+                    username="person",
+                    password="pwsd",
+                    name="A Person"
+                ))
+            )
+            data = json.loads(response.data.decode())
+            self.assertTrue(data['status'] == 'fail')
+            self.assertTrue(data['message'] == (
+                'The Content-Type of the post data is not JSON. Ensure you use application/json'))
+            self.assertFalse(data.get('auth_token'))
+            self.assertTrue(response.content_type == 'application/json')
+            self.assertEqual(response.status_code, 400)
+
     def test_registered_user_login_successfully(self):
         """
         Test the successful login of a registered user
@@ -174,6 +196,41 @@ class TestAuth(BaseTestCase):
                                                'not provided.')
             self.assertTrue(response.content_type == 'application/json')
             self.assertEqual(response.status_code, 400)
+
+    def test_login_fails_with_invalid_content_type(self):
+        """
+        Test that registration fails when the post data is sent with a content-type other than application/json
+        :return:
+        """
+        with self.client:
+            response = self.client.post(
+                '/api/v1/auth/login',
+                data=json.dumps(dict(
+                    username="test username",
+                    password="test pwd"
+                ))
+            )
+            data = json.loads(response.data.decode())
+            self.assertTrue(data['status'] == 'fail')
+            self.assertTrue(data['message'] == (
+                'The Content-Type of the post data is not JSON. Ensure you use application/json'))
+            self.assertTrue(response.content_type == 'application/json')
+            self.assertEqual(response.status_code, 400)
+
+            response2 = self.client.post(
+                '/api/v1/auth/login',
+                data=json.dumps(dict(
+                    username="test username",
+                    password="test pwd"
+                )),
+                content_type='text/plain',
+            )
+            data2 = json.loads(response2.data.decode())
+            self.assertTrue(data2['status'] == 'fail')
+            self.assertTrue(data2['message'] == (
+                'The Content-Type of the post data is not JSON. Ensure you use application/json'))
+            self.assertTrue(response2.content_type == 'application/json')
+            self.assertEqual(response2.status_code, 400)
 
 
 if __name__ == '__main__':
