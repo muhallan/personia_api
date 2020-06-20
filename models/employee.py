@@ -3,7 +3,8 @@ from .model_mixin import app, db, ModelMixin
 
 class Employee(ModelMixin):
     """
-    The employee model. This represents the employee for the company, both the supervisor and the subordinates.
+    The employee model. This represents the employee for the company, both the supervisor and the subordinate.
+    It represents an adjacency model plus nested sets model, for storing hierarchical data
     """
     __tablename__ = 'employee'
 
