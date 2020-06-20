@@ -78,3 +78,7 @@ class TestEmployeeClass(unittest.TestCase):
         self.assertListEqual(employee.subordinates, [subordinate])
         with self.assertRaisesRegex(TypeError, 'employee to be added should be of type Employee'):
             employee.add_subordinate("Employee name")
+
+
+if __name__ == '__main__':
+    unittest.main()

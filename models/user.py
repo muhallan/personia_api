@@ -11,14 +11,16 @@ class User(ModelMixin):
     """
     __tablename__ = 'user'
 
+    user_id = db.Column(db.String(64), primary_key=True)
     username = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     name = db.Column(db.String(120), nullable=False)
 
-    def __init__(self, username, password, name):
+    def __init__(self, user_id, username, password, name):
         """
         Initialize the user instance
         """
+        self.user_id = user_id
         self.username = username
         self.password = Bcrypt().generate_password_hash(password).decode()
         self.name = name

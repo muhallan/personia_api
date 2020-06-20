@@ -29,3 +29,7 @@ class TestValidateUUID(unittest.TestCase):
         self.assertTrue(uuid_without_dashes)
         uppercase_uuid = "3DC908713E2F4FA2B1B2132E8717B394"
         self.assertTrue(uppercase_uuid)
+
+
+if __name__ == '__main__':
+    unittest.main()

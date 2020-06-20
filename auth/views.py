@@ -1,4 +1,5 @@
 import logging
+import uuid
 from flask import Blueprint, request, make_response, jsonify
 from flask.views import MethodView
 from models.user import User
@@ -37,7 +38,9 @@ class RegisterView(MethodView):
         user = User.find_first(username=post_data.get('username'))
         if not user:
             try:
+                user_id = uuid.uuid4().hex
                 user = User(
+                    user_id=user_id,
                     username=username,
                     password=password,
                     name=name
@@ -46,7 +49,7 @@ class RegisterView(MethodView):
                 user.save()
 
                 # generate the auth token
-                auth_token = user.generate_token(user.id)
+                auth_token = user.generate_token(user.user_id)
                 response = {
                     'status': 'success',
                     'message': 'Successfully registered.',
@@ -96,7 +99,7 @@ class LoginView(MethodView):
             # find the user
             user = User.find_first(username=username)
             if user and user.is_password_valid(password):
-                auth_token = user.generate_token(user.id)
+                auth_token = user.generate_token(user.user_id)
                 if auth_token:
                     response = {
                         'status': 'success',

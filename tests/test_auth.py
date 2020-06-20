@@ -1,5 +1,6 @@
 import json
 import unittest
+import uuid
 from tests.base_test import BaseTestCase
 from models.user import User
 
@@ -47,6 +48,7 @@ class TestAuth(BaseTestCase):
         Test registration with an already registered username fails
         """
         user = User(
+            user_id=uuid.uuid4().hex,
             username='jimmy',
             password='testpd',
             name='star'
