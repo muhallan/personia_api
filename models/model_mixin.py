@@ -38,6 +38,13 @@ class ModelMixin(db.Model):
             return False
 
     @classmethod
+    def fetch_all(cls):
+        """
+        Return all the data in the model.
+        """
+        return cls.query.all()
+
+    @classmethod
     def get(cls, *args):
         """
         Return data filtered by the id.
@@ -58,3 +65,16 @@ class ModelMixin(db.Model):
         """
         return cls.query.filter_by(**kwargs).first()
 
+    @classmethod
+    def delete_all_records(cls):
+        """
+        Delete all the records in the table
+        :return: success: bool
+        """
+        try:
+            cls.query.delete()
+            db.session.commit()
+            return True
+        except SQLAlchemyError:
+            db.session.rollback()
+            return False

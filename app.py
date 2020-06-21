@@ -4,7 +4,7 @@ from flask_cors import CORS
 from config import config_dict
 
 app = Flask(__name__)
-app.config.from_object(config_dict[os.getenv('APP_CONFIG')])
+app.config.from_object(config_dict[os.getenv('APP_CONFIG', 'development')])
 # add support for CORS for all end points
 CORS(app, resources={r"/*": {"origins": "*"}})
 

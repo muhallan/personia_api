@@ -53,7 +53,14 @@ class RegisterView(MethodView):
                     name=name
                 )
                 # save the user
-                user.save()
+                result = user.save()
+                if not result:
+                    logging.error(f"An error has occurred while saving the user")
+                    response = {
+                        'status': 'fail',
+                        'message': 'Failed to save the user in the database'
+                    }
+                    return make_response(jsonify(response)), 500
 
                 # generate the auth token
                 auth_token = user.generate_token(user.user_id)
@@ -69,7 +76,7 @@ class RegisterView(MethodView):
                     'status': 'fail',
                     'message': 'Registration failed. Please try again.'
                 }
-                return make_response(jsonify(response)), 401
+                return make_response(jsonify(response)), 500
         else:
             response = {
                 'status': 'fail',

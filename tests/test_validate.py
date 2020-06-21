@@ -78,7 +78,7 @@ class TestCheckJsonContainsLoop(unittest.TestCase):
         self.assertListEqual(duplicates, ['Barbara', 'Nick'])
 
     def test_check_json_contains_loop_no_duplicates(self):
-        with_loop = """
+        with_out_loop = """
             {
                 "Pete": "Nick",
                 "Barbara": "Nick",
@@ -87,7 +87,7 @@ class TestCheckJsonContainsLoop(unittest.TestCase):
                 "Jane": "Reenah"
             }
         """
-        duplicates = check_json_contains_loop(with_loop)
+        duplicates = check_json_contains_loop(with_out_loop)
         self.assertListEqual(duplicates, [])
 
 
