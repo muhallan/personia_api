@@ -6,7 +6,7 @@ class Employee:
     The Employee class that helps us model an employee and their supervisor, assign them a unique id, the id of the
     supervisor, it's left (lft) and right (rgt) values which indicate the position of the entry following the
     modified preorder traversal on the organization tree.
-    This model helps us implement a nested set model to store and easily access hierarchical data in a relational
+    This model helps us implement a nested sets model to store and easily access hierarchical data in a relational
     database
     """
     def __init__(self, name, supervisor=None):

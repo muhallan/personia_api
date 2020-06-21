@@ -95,12 +95,59 @@ class StructureHierarchyView(MethodView):
         return make_response(jsonify(response)), 201
 
 
+class TwoImmediateSupervisorsView(MethodView):
+    """
+    View to retrieve the two immediate supervisors of a given employee. These are the supervisor and the
+    supervisor's supervisor of a given employee
+    """
+    @authorization
+    def get(self, employee_name, *args, **kwargs):
+        # get the logged in user_id from the authorization kwargs for use when needed
+        user_id = kwargs['user_id']
+
+        employee = Employee.find_first(name=employee_name)
+        if not employee:
+            response = {
+                'status': 'fail',
+                'message': f"The requested employee: '{employee_name}' doesn't exist"
+            }
+            return make_response(jsonify(response)), 404
+        else:
+            two_supervisors = Employee.query.filter(Employee.lft < employee.lft, Employee.rgt > employee.rgt).order_by(
+                Employee.lft.desc()).limit(2).all()
+            supervisors = {
+                'supervisor': None,
+                'supervisor_of_supervisor': None
+            }
+            if len(two_supervisors) == 1:
+                supervisors["supervisor"] = two_supervisors[0].name
+                message = "Only the immediate supervisor is available"
+            elif len(two_supervisors) == 2:
+                supervisors["supervisor"] = two_supervisors[0].name
+                supervisors["supervisor_of_supervisor"] = two_supervisors[1].name
+                message = "Both supervisors are available"
+            else:
+                message = "This employee has no supervisor"
+            response = {
+                'status': 'success',
+                'supervisors': supervisors,
+                'message': message
+            }
+            return make_response(jsonify(response)), 200
+
+
 # define the API resources
 structure_view = StructureHierarchyView.as_view('structure_api')
+supervisors_view = TwoImmediateSupervisorsView.as_view('two_supervisors_api')
 
 # add Rules for API Endpoints
 hierarchy_blueprint.add_url_rule(
     '/hierarchy/structure',
     view_func=structure_view,
     methods=['POST']
+)
+hierarchy_blueprint.add_url_rule(
+    '/hierarchy/two_supervisors/<string:employee_name>',
+    view_func=supervisors_view,
+    methods=['GET']
 )

@@ -23,3 +23,6 @@ class Employee(ModelMixin):
         self.supervisor_id = supervisor_id
         self.lft = lft
         self.rgt = rgt
+
+    def __repr__(self):
+        return f'Employee: {self.name}'
