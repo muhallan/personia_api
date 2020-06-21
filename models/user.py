@@ -25,6 +25,9 @@ class User(ModelMixin):
         self.password = Bcrypt().generate_password_hash(password).decode()
         self.name = name
 
+    def __repr__(self):
+        return f"User: {self.name}"
+
     def is_password_valid(self, password):
         """
         Check the password provided against the hash we have stored to validate it
