@@ -27,11 +27,10 @@ def validate_json(json_data):
     """
     Checks whether the data provided is valid JSON or not
     :param json_data: data to validate. This is of any data type
-    :return: Bool. Whether the data is valid or not
+    :return: dict / bool. The parsed dictionary or false if the data is not valid json
     """
     try:
-        json.loads(json_data)
-        return True
+        return json.loads(json_data)
     except (ValueError, TypeError) as error:
         logging.error(f"Invalid JSON. Reason: {error}")
         return False

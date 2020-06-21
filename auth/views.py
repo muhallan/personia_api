@@ -64,7 +64,7 @@ class RegisterView(MethodView):
                 }
                 return make_response(jsonify(response)), 201
             except Exception as e:
-                logging.error(f"An error has occurred - {e}")
+                logging.error(f"An error has occurred while inserting a user - {e}")
                 response = {
                     'status': 'fail',
                     'message': 'Registration failed. Please try again.'
@@ -128,7 +128,7 @@ class LoginView(MethodView):
                 }
                 return make_response(jsonify(response)), 401
         except Exception as e:
-            logging.error(f"An error has occurred - {e}")
+            logging.error(f"An error has occurred while fetching a user - {e}")
             response = {
                 'status': 'fail',
                 'message': 'An error has occurred. Please try again.'

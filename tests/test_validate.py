@@ -41,7 +41,11 @@ class TestValidateJSON(unittest.TestCase):
             "user": "man"
         }
         """
-        self.assertTrue(validate_json(data))
+        result = {
+            "password": "batman",
+            "user": "man"
+        }
+        self.assertEqual(validate_json(data), result)
 
     def test_validate_incorrect_json(self):
         data = "just a string"
