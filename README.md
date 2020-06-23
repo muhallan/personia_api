@@ -29,7 +29,7 @@ $ cd personio_api
 pipenv install
 pipenv shell
 ```
-* Create a file called `.env` in the root of the project, and paste their, the 
+* Create a file called `.env` in the root of the project, and paste there, the 
 contents of `.env.sample`. Adjust the configurations according to your local 
 settings.
 
@@ -264,12 +264,6 @@ This endpoint returns the the supervisor and the supervisor's supervisor of a
 * **Method:**
 
   `GET`
-  
-*  **URL Params**
-
-   **Required:**
- 
-   `employee_name=[string]`
 
 * **Success Response:**
 
@@ -308,7 +302,7 @@ This endpoint returns the the supervisor and the supervisor's supervisor of a
     `Authorization` header in the request. The token sent should be valid 
     and should start with the `"Bearer "` string.  
     
-    The employee name sent in the query parameters is case-sensitive. E.g. 
+    The employee name sent in the URL is case-sensitive. E.g. 
     `Nick` doesn't match `NicK`.
     
 ## Assumptions
