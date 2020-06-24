@@ -17,7 +17,7 @@ class RegisterView(MethodView):
                 'status': 'fail',
                 'message': 'The Content-Type of the post data is not JSON. Ensure you use application/json'
             }
-            return make_response(jsonify(response)), 400
+            return make_response(jsonify(response)), 415
 
         # get the post data
         post_data = request.json
@@ -95,7 +95,7 @@ class LoginView(MethodView):
                 'status': 'fail',
                 'message': 'The Content-Type of the post data is not JSON. Ensure you use application/json'
             }
-            return make_response(jsonify(response)), 400
+            return make_response(jsonify(response)), 415
 
         # get the post data
         post_data = request.json
